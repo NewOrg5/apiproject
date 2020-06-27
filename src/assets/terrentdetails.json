@@ -1,7 +1,7 @@
 {
+    "api": [{ "terrentid": "Heraizen_1", "email": "heraizen@gmail.com", "serviceid": "hsadf123" },
+        { "terrentid": "Tenant_id_1", "email": "mite@mite.com", "serviceid": "hsadadf123" },
+        { "terrentid": "AITE_Eng", "email": "aite@ait.ac.in", "serviceid": "hsdfadf123" }
 
-    "terrentid": ["Heraizen_1", "Heraizen_1", "Heraizen_1"],
-    "email": ["heraizen@gmail.com", "heraizen@gmail.com", "heraizen@gmail.com"],
-    "serviceid": ["userdata", "userdata", "userdata"]
-
+    ]
 }

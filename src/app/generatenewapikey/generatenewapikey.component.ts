@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ShowterrentsService } from '../Services/showterrents.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatSort} from '@angular/material/sort';
 import { TerrentDetail } from '../Shared/showdetails.model';
 
 @Component({
@@ -17,12 +18,13 @@ export class GeneratenewapikeyComponent implements OnInit {
   counterList = [5, 10, 15, 20];
   p: Number = 1;
   terrentdetails: TerrentDetail[] = [];
+  ids = [1,3,2,4];
 
   displayedColumns: string[] = ['sl', 'terrentid', 'email', 'service', 'edit'];
 
   dataSource = new MatTableDataSource<TerrentDetail>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private showterrentsservice: ShowterrentsService, private fb: FormBuilder) { }
   generateapikey = this.fb.group({
@@ -33,14 +35,10 @@ export class GeneratenewapikeyComponent implements OnInit {
 
   ngOnInit(): void {
     this.showterrentsservice.getterrentdetails().subscribe(data => {
-      this.terrentdetails = data as TerrentDetail[];
+      console.log(data)
+      this.terrentdetails = data.api as TerrentDetail[];
       this.dataSource = new MatTableDataSource(this.terrentdetails);
     })
-  }
-
-  test() {
-    console.log(this.terrentdetails);
-    console.log(this.dataSource);
   }
 
   createapikey() {
@@ -60,6 +58,25 @@ export class GeneratenewapikeyComponent implements OnInit {
   get serviceid() {
     return this.generateapikey.get('serviceid')
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim();
+  }
+
+  deactivate(index) {
+    console.log(this.terrentdetails[index]);
+    this.terrentdetails.splice(index, 1);
+    console.log(this.terrentdetails);
+    this.dataSource = new MatTableDataSource(this.terrentdetails);
+  }
+
+  submit() {
+    this.terrentdetails.push(this.generateapikey.value);
+    this.dataSource = new MatTableDataSource(this.terrentdetails);
+    this.generateapikey.reset();
+  }
+
 }
 
 

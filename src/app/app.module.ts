@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MatSelectModule, MatInputModule, MatFormFieldModule, MatCardModule, MatDialogModule,  } from '@angular/material';
+import { MatSelectModule, MatInputModule, MatFormFieldModule, MatCardModule, MatDialogModule, MatPaginatorModule,  } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
@@ -37,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
      MatSortModule,
      MatDialogModule,
      HttpClientModule,
+     MatPaginatorModule
     
     
   ],

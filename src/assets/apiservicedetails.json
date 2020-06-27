@@ -1,0 +1,13 @@
+{
+    "newservice": [{
+            "servicename": "Student Profile",
+            "description": "Student Profile Information"
+        },
+        {
+            "servicename": "FEE_DETAILS",
+            "description": "Fee Details api"
+        }
+    ]
+
+
+}
