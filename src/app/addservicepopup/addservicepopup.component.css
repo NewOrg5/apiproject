@@ -1,0 +1,11 @@
+::ng-deep .mat-dialog-container {
+    width: 500px
+}
+
+.mat-form-field {
+    display: block;
+}
+
+::ng-deep .mat-dialog-content {
+    width: 515px;
+}

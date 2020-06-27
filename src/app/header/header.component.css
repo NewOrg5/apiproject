@@ -1,0 +1,13 @@
+.navbar {
+    background-color: blueviolet;
+    color: white
+}
+
+.btn:hover {
+    background-color: palegoldenrod;
+    color: white;
+}
+
+.btn {
+    color: #d6d6d6;
+}
