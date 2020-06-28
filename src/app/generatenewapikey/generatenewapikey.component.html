@@ -17,9 +17,6 @@
             </form>
         </div>
 
-
-
-
         <!-- Datatable starts here -->
         <div class="col-md-6 mr-auto">
             <mat-form-field>
@@ -53,12 +50,11 @@
 
                 <ng-container matColumnDef="edit">
                     <th mat-header-cell *matHeaderCellDef> Edit </th>
-                    <td mat-cell *matCellDef="let test; let i=index;" (click)="deactivate(i)"> <i class="text-danger ">Deactivate</i> </td>
+                    <td mat-cell *matCellDef="let test; let i=index;" (click)="deactivate(i)"> <i
+                            class="text-danger ">Deactivate</i> </td>
                 </ng-container>
 
-
                 <!-- Progress Column -->
-
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns "></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -70,9 +66,12 @@
 
             </table>
             <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        </div>
+    </div>
+</div>
 
 
-            <!-- <div class="row ">
+<!-- <div class="row ">
         <div class="ml-3 ">Show</div>
         <div class="col-md-1 col-sm-1 col-lg-1 ">
             <mat-select [(ngModel)]="count ">
@@ -151,4 +150,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
