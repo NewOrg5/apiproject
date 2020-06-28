@@ -48,7 +48,10 @@ export class AddnewservicesComponent implements OnInit {
     
   }
  
-  deleteservice(){
+  deleteservice(index){
+this.newapiinterface.splice(index,1);
+this.dataSource=new MatTableDataSource(this.newapiinterface)
+
 
   }
   applyFilter(event: Event) {

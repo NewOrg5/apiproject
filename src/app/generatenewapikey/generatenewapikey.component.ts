@@ -19,7 +19,7 @@ export class GeneratenewapikeyComponent implements OnInit {
   p: Number = 1;
   terrentdetails: TerrentDetail[] = [];
   ids = [1,3,2,4];
-
+  createapi:false;
   displayedColumns: string[] = ['sl', 'terrentid', 'email', 'service', 'edit'];
 
   dataSource = new MatTableDataSource<TerrentDetail>();
@@ -75,6 +75,13 @@ export class GeneratenewapikeyComponent implements OnInit {
     this.terrentdetails.push(this.generateapikey.value);
     this.dataSource = new MatTableDataSource(this.terrentdetails);
     this.generateapikey.reset();
+  }
+  reset(){
+    this.generateapikey.reset();
+  }
+  back(){
+this.createapi=false;
+this.flag=true;
   }
 
 }

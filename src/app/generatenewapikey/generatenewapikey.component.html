@@ -91,61 +91,63 @@
 
 
 <div *ngIf="!flag ">
-    <div class="row ">
-        <div class="col-md-6 offset-3 ">
+    <div *ngIf="!createapi">
+        <div class="row ">
+            <div class="col-md-6 offset-3 ">
 
 
-            <div class="col-md-12 ">
-                <form [formGroup]="generateapikey">
-                    <h1>Generate New API Key</h1>
-                    <br>
-                    <div class="example-conatiner ">
-
-
-                        <mat-form-field>
-                            <input matInput placeholder="Terrent Id " formControlName="terrentId">
-                            <mat-error *ngIf="terrentId.errors?.required&&terrentId.touched ">Please Provide he terrent Id</mat-error>
-                        </mat-form-field>
-
+                <div class="col-md-12 ">
+                    <form [formGroup]="generateapikey">
+                        <h1>Generate New API Key</h1>
                         <br>
-
-                        <mat-form-field class="full-width-input ">
-                            <input matInput placeholder="Email " formControlName="email" required>
-                            <mat-error *ngIf="email.errors?.required&&email.touched ">Please provide the email</mat-error>
-                        </mat-form-field>
-
-                        <br>
-                        <mat-form-field>
-                            <mat-label>Service Id</mat-label>
-                            <mat-select formControlName="serviceid">
-                                <mat-option *ngFor="let i of ids" [value]="i">{{i}} </mat-option>
-
-                            </mat-select>
-                            <mat-error *ngIf="serviceid.errors?.required&&serviceid.touched ">Please provide the service Id</mat-error>
-                        </mat-form-field>
-
-                        <hr>
+                        <div class="example-conatiner ">
 
 
-                        <div class="col-md-12 row offset-md-6">
-                            <div class="col-md-2 ">
-                                <div class="form-group text-center search-border ">
-                                    <button type="button " class="btn btn-danger ">Reset</button>
+                            <mat-form-field>
+                                <input matInput placeholder="Terrent Id " formControlName="terrentId">
+                                <mat-error *ngIf="terrentId.errors?.required&&(terrentId.dirty||terrentId.touched) ">Please Provide he terrent Id</mat-error>
+                            </mat-form-field>
+
+                            <br>
+
+                            <mat-form-field class="full-width-input ">
+                                <input matInput placeholder="Email " formControlName="email" required>
+                                <mat-error *ngIf="email.errors?.required&&email.touched ">Please provide the email</mat-error>
+                            </mat-form-field>
+
+                            <br>
+                            <mat-form-field>
+                                <mat-label>Service Id</mat-label>
+                                <mat-select formControlName="serviceid">
+                                    <mat-option *ngFor="let i of ids" [value]="i">{{i}} </mat-option>
+
+                                </mat-select>
+                                <mat-error *ngIf="serviceid.errors?.required&&serviceid.touched ">Please provide the service Id</mat-error>
+                            </mat-form-field>
+
+                            <hr>
+
+
+                            <div class="col-md-12 row offset-md-6">
+                                <div class="col-md-2 ">
+                                    <div class="form-group text-center search-border ">
+                                        <button type="button " class="btn btn-danger " (click)="reset()">Reset</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2 ">
-                                <div class="form-group text-center search-border ">
-                                    <button type="button " class="btn btn-secondary " (click)="submit()">Create</button>
+                                <div class="col-md-2 ">
+                                    <div class="form-group text-center search-border ">
+                                        <button type="button " class="btn btn-secondary " [disabled]="generateapikey.invalid" (click)="submit()">Create</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2 ">
-                                <div class="form-group text-center search-border ">
-                                    <button type="button " class="btn other-button ">Cancel</button>
+                                <div class="col-md-2 ">
+                                    <div class="form-group text-center search-border ">
+                                        <button type="button " class="btn other-button" (click)="back()">Cancel</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

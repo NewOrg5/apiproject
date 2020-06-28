@@ -27,11 +27,16 @@ mat-form-field {
     display: block;
 }
 
-::ng-deep .mat-form-field-flex {
+
+/* ::ng-deep .mat-form-field-flex {
     border: 1px solid #d6d6d6;
     border-radius: 5px;
-}
+} */
 
 ::ng-deep .mat-form-field-underline {
     border: none;
+}
+
+body {
+    background-color: blueviolet;
 }
