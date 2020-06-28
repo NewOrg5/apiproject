@@ -26,7 +26,7 @@
     </div>
     <div class="row">
         <mat-dialog-actions class="offset-md-8">
-            <button class="btn mat-raised-button mr-2" mat-dialog-close>Close</button>
+            <button class="btn mat-raised-button mr-2" mat-dialog-close (click)="close()">Close</button>
             <button class="btn mat-raised-button mat-primary" (click)="add()" mat-dialog-close>Add</button>
         </mat-dialog-actions>
     </div>

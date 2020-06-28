@@ -20,7 +20,7 @@ export class AddservicepopupComponent implements OnInit {
 
 add(){
  
-  this.dialog.close(this.addservicepopup);
+  this.dialog.close({0:true,1:this.addservicepopup});
 }
 get servicename()
 {
@@ -29,6 +29,10 @@ get servicename()
 get description()
 {
   return this.addservicepopup.get('description');
+}
+
+close() {
+  this.dialog.close(false);
 }
 
 
