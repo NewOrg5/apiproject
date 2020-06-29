@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { ShowterrentsService } from '../Services/showterrents.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -19,25 +19,33 @@ export class GeneratenewapikeyComponent implements OnInit {
   p: Number = 1;
   terrentdetails: TerrentDetail[] = [];
   ids = [1,3,2,4];
+  selectedvalues:string[]=['Heraizen_1','Tenant_id_1','AITE_Eng']
   createapi:false;
   displayedColumns: string[] = ['sl', 'terrentid', 'email', 'service', 'edit'];
-
+  selectterrent:string;
+  selectedterrents:string;
+  generateapikey:FormGroup;
   dataSource = new MatTableDataSource<TerrentDetail>();
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private showterrentsservice: ShowterrentsService, private fb: FormBuilder) { }
-  generateapikey = this.fb.group({
+ngOnInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  this.generateapikey = this.fb.group({
     terrentId: ['', [Validators.required]],
     email: ['', [Validators.required]],
     serviceid: ['', Validators.required]
   })
 
-  ngOnInit(): void {
     this.showterrentsservice.getterrentdetails().subscribe(data => {
       console.log(data)
       this.terrentdetails = data.api as TerrentDetail[];
       this.dataSource = new MatTableDataSource(this.terrentdetails);
+      
+      
+      
     })
   }
 
@@ -59,9 +67,13 @@ export class GeneratenewapikeyComponent implements OnInit {
     return this.generateapikey.get('serviceid')
   }
 
+ 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if(this.dataSource.paginator){
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   deactivate(index) {
@@ -79,9 +91,31 @@ export class GeneratenewapikeyComponent implements OnInit {
   reset(){
     this.generateapikey.reset();
   }
+
+  selectvalue(){
+console.log(this.selectterrent)
+  }
+
+
   back(){
 this.createapi=false;
 this.flag=true;
+  }
+  openstatus()
+  {
+    
+  }
+
+  givedata(){
+    this.selectedterrents=this.selectterrent
+    this.dataSource.data.filter(data=>
+      {
+        
+        if(data.terrentid==this.selectedterrents)
+        {
+          this.dataSource = new MatTableDataSource(this.terrentdetails);
+        }
+      })
   }
 
 }

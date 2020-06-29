@@ -7,22 +7,22 @@
                     <div class="form-group">
 
                         <mat-form-field class="full-width-input">
-                            <input class="email" matInput placeholder="Email" formControlName="username">
+                            <input class="email" matInput placeholder="Email" class="email" formControlName="username">
                             <mat-error *ngIf="username.errors?.required&&username.touched">
-                                This field is required
+                                Please Provide a Email
                             </mat-error>
                         </mat-form-field>
                     </div>
                     <div class="form-group">
 
                         <mat-form-field class="full-width-input">
-                            <input matInput type="password" class="password" placeholder="Password" formControlName="password" required>
+                            <input matInput type="password" class="password" placeholder="Password" formControlName="password">
                             <mat-error *ngIf="password.errors?.required&&password.touched">
                                 Please provide a password
                             </mat-error>
                         </mat-form-field>
                     </div>
-                    <button class="btn btn-primary btn-lg" routerLink="login" [disabled]="loginform.invalid">Login</button>
+                    <button class="btn btn-primary btn-lg" routerLink="login" [disabled]="loginform.invalid" (click)="confirmcredentials()">Login</button>
                 </form>
             </mat-card-content>
         </mat-card>

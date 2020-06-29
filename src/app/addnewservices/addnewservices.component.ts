@@ -29,11 +29,13 @@ export class AddnewservicesComponent implements OnInit {
     });
 
     dialogConfig.afterClosed().subscribe(result => {
-      if (result[0]) {
-        this.newapiinterface.push(result[1].value);
-        this.dataSource = new MatTableDataSource(this.newapiinterface);
-      }
-    })
+     console.log(result);
+     if(result[0])
+     {
+       this.newapiinterface.push(result[1].value);
+       this.dataSource=new MatTableDataSource(this.newapiinterface);
+     }
+    });
   }
 
   ngOnInit(): void {
