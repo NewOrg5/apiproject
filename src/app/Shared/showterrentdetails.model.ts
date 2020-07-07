@@ -1,5 +1,5 @@
  interface terrentdetail {
-    terrentid: string;
+    tenantid: string;
     email: string;
     serviceid: string;
 }

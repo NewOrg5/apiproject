@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl  : "http://dhiapikeygen-env.eba-zddiip6y.ap-south-1.elasticbeanstalk.com/"
-
+  baseUrl  : "http://dhiapikeygen-env.eba-zddiip6y.ap-south-1.elasticbeanstalk.com/",
+newserviceURL:"http://dhiapikeygen-env.eba-zddiip6y.ap-south-1.elasticbeanstalk.com/api/v1/apikeymaker/"
 };
 
 /*

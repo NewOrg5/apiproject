@@ -13,10 +13,10 @@ import { AddnewservicesComponent } from './addnewservices/addnewservices.compone
 import { AddservicepopupComponent } from './addservicepopup/addservicepopup.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import { InterceptorService } from './auth-guard/interceptor.service';
 // import { DataTableModule } from 'angular-6-datatable';
 @NgModule({
   declarations: [
@@ -25,7 +25,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     HeaderComponent,
     GeneratenewapikeyComponent,
     AddnewservicesComponent,
-    AddservicepopupComponent,
+    AddservicepopupComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +42,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     
     
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

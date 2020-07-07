@@ -1,5 +1,7 @@
 export interface TerrentDetail {
-    terrentid: string;
+    id: string;
+    tenantId: string;
     email: string;
-    serviceid: string;
+    serviceId: string;
+    apiKey: string;
 }

@@ -1,5 +1,5 @@
 <app-header></app-header>
-<div *ngIf="flag">
+<div [hidden]="!flag">
     <div class="container">
 
         <div class="text-right">
@@ -9,21 +9,22 @@
 
         <div class="row">
             <div class="col-md-3">
-                <mat-label class="">Select Terrent<em>&nbsp;</em></mat-label>
-                <mat-select class="inputMaterial" [(ngModel)]="selectterrent" (ngModelChange)="givedata()">
+                <mat-label class="">Select Tenant<em>&nbsp;</em></mat-label>
+                <mat-select class="inputMaterial dropdown" [(ngModel)]="selectterrent" (ngModelChange)="givedata()">
 
                     <mat-option *ngFor="let selectvalue of selectedvalues" [value]="selectvalue" name="name">{{selectvalue}}</mat-option>
                 </mat-select>
             </div>
+            <!-- Datatable starts here -->
+            <div class="col-md-6 offset-3 mr-auto">
+                <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" #input>
+                </mat-form-field>
+            </div>
         </div>
         <br>
-        <!-- Datatable starts here -->
-        <div class="col-md-6 mr-auto">
-            <mat-form-field>
-                <mat-label>Search</mat-label>
-                <input matInput (keyup)="applyFilter($event)" #input>
-            </mat-form-field>
-        </div>
+        <hr>
 
         <div class="row">
             <table align="center" mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
@@ -33,9 +34,9 @@
                     <td mat-cell *matCellDef="let test; let i= index;"> {{i+1}} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="terrentid">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Terrent Id </th>
-                    <td mat-cell *matCellDef="let test"> {{test.terrentid}} </td>
+                <ng-container matColumnDef="tenantid">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tenant Id </th>
+                    <td mat-cell *matCellDef="let test"> {{test.tenantid}} </td>
                 </ng-container>
 
                 <ng-container matColumnDef="email">
@@ -53,12 +54,11 @@
                     <td mat-cell *matCellDef="let test; let i=index;" (click)="deactivate(i)"> <i class="text-danger ">Deactivate</i> </td>
                 </ng-container>
 
-                <!-- Progress Column -->
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns "></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-                <!-- Row shown when there is no matching data. -->
+
                 <tr class="mat-row" *matNoDataRow>
                     <td class="mat-cell" colspan="5 ">No data matching the filter "{{input.value}} "</td>
                 </tr>
@@ -70,22 +70,7 @@
 </div>
 
 
-<!-- <div class="row ">
-        <div class="ml-3 ">Show</div>
-        <div class="col-md-1 col-sm-1 col-lg-1 ">
-            <mat-select [(ngModel)]="count ">
-                <mat-option *ngFor="let counter of counterList " [value]="counter ">
-                    {{counter}}
-                </mat-option>
-            </mat-select>
-        </div>
 
-
-
-
-    </div>
-</div>
--->
 
 
 <div *ngIf="!flag ">
@@ -102,8 +87,8 @@
 
 
                             <mat-form-field>
-                                <input matInput placeholder="Terrent Id " formControlName="terrentId">
-                                <mat-error *ngIf="terrentId.errors?.required&&(terrentId.dirty||terrentId.touched) ">Please Provide he terrent Id</mat-error>
+                                <input matInput placeholder="Tenant Id " formControlName="tenantid">
+                                <mat-error *ngIf="tenantid.errors?.required&&(tenantid.dirty||tenantid.touched) ">Please Provide the tenant Id</mat-error>
                             </mat-form-field>
 
                             <br>
@@ -117,7 +102,7 @@
                             <mat-form-field>
                                 <mat-label>Service Id</mat-label>
                                 <mat-select formControlName="serviceid">
-                                    <mat-option *ngFor="let i of ids" [value]="i">{{i}} </mat-option>
+                                    <mat-option [value]=""> </mat-option>
 
                                 </mat-select>
                                 <mat-error *ngIf="serviceid.errors?.required&&serviceid.touched ">Please provide the service Id</mat-error>

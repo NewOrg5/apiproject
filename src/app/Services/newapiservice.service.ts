@@ -7,8 +7,8 @@ import { newapiservice } from '../Shared/newapiservice.model';
 })
 export class NewapiserviceService {
 
-  constructor(private http:HttpClient) { }
-  get_details():Observable<newapiservice[]>{
+  constructor(private http: HttpClient) { }
+  get_details(): Observable<newapiservice[]> {
     return this.http.get<newapiservice[]>('./assets/apiservicedetails.json')
   }
 }

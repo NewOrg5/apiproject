@@ -1,4 +1,4 @@
-interface credentials{
+export interface credentials{
     email:string;
     password:string;
 }

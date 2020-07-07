@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { GeneratenewapikeyComponent } from './generatenewapikey/generatenewapikey.component';
 import { AddnewservicesComponent } from './addnewservices/addnewservices.component';
+import { AuthGuardGuard } from './auth-guard/auth-guard.guard';
+// import { AuthGuard } from './auth-guard/auth-guard.service';
 
 
 const routes: Routes = [
@@ -17,16 +19,22 @@ const routes: Routes = [
     component:GeneratenewapikeyComponent,
  
   },
-  {
-    path:'home',
-    component:GeneratenewapikeyComponent,
-    
-  },
-  {
-    path:'service',
-    component:AddnewservicesComponent,
+ 
+  // children:[
+    {
+      canActivate: [AuthGuardGuard],
+      path:'home',
+      component:GeneratenewapikeyComponent,
+      
+    },
+    {
+      path:'service',
+      component:AddnewservicesComponent,
+  
+    }
 
-  }
+  // ]
+ 
 ];
 
 @NgModule({
