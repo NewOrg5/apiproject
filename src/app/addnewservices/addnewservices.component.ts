@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AddservicepopupComponent } from '../addservicepopup/addservicepopup.component';
+import { AddservicepopupComponent } from './addservicepopup/addservicepopup.component';
 import { MatDialog, MatDialogConfig, MatTableDataSource } from '@angular/material';
-import { NewapiserviceService } from '../Services/newapiservice.service';
-import { newapiservice } from '../Shared/newapiservice.model';
+
+import { dhiApiKeyServiceDetailsDTO } from '../Shared/apiKeyServiceDetails';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ShowterrentsService } from '../Services/showterrents.service';
 @Component({
   selector: 'app-addnewservices',
   templateUrl: './addnewservices.component.html',
@@ -12,14 +13,17 @@ import { MatSort } from '@angular/material/sort';
 })
 export class AddnewservicesComponent implements OnInit {
   flag: true;
-  newapiinterface: newapiservice[] = [];
+  newapiinterface: dhiApiKeyServiceDetailsDTO[] = [];
 
   displayedColumns: string[] = ['sl', 'servicename', 'description', 'delete']
-  dataSource = new MatTableDataSource<newapiservice>();
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  dataSource = new MatTableDataSource<dhiApiKeyServiceDetailsDTO>();
+  // @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  // @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(public dialog: MatDialog, private newapiservice: NewapiserviceService) { }
+
+  constructor(public dialog: MatDialog, private showtenants: ShowterrentsService) { }
   addnewservice() {
 
     const dialogConfig = this.dialog.open(AddservicepopupComponent, {
@@ -29,26 +33,37 @@ export class AddnewservicesComponent implements OnInit {
     });
 
     dialogConfig.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result[0]) {
-        this.newapiinterface.push(result[1].value);
-        this.dataSource = new MatTableDataSource(this.newapiinterface);
+      if(result){
+      this.theApiservices();
       }
     });
   }
-
+  
   ngOnInit(): void {
-    this.newapiservice.get_details().subscribe(data => {
-      this.newapiinterface = data["newservice"] as newapiservice[];
+    this.theApiservices()
+  }
+  theApiservices() {
+    this.showtenants.getAllApiServices().subscribe(data => {
+      console.log(data)
+      this.newapiinterface = data as dhiApiKeyServiceDetailsDTO[];
       this.dataSource = new MatTableDataSource(this.newapiinterface);
+      this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
     })
 
   }
 
-  deleteservice(index) {
-    this.newapiinterface.splice(index, 1);
-    this.dataSource = new MatTableDataSource(this.newapiinterface)
-  }
+  deleteservice(id) {
+    
+      this.showtenants.deleteApiService(id).subscribe(res => {
+        if(res){
+          this.theApiservices()
+          }
+        }
+      
+      )
+    }
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

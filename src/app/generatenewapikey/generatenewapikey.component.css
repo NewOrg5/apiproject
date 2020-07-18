@@ -28,8 +28,18 @@
         cursor: pointer;
     }
     
+    .deactivate {
+        border: none;
+        background-color: white;
+    }
+    
     .select-data {
         border: 1px solid #d6d6d6
+    }
+    
+    .apikey {
+        background-color: #d6d6d6;
+        color: red;
     }
     
     .dropdown {

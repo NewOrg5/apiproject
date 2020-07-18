@@ -4,7 +4,9 @@ import { ShowterrentsService } from '../Services/showterrents.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { TerrentDetail } from '../Shared/showdetails.model';
+import { DhiApiKeyBasicDTO } from '../Shared/basicdetails';
+import { CommentStmt } from '@angular/compiler';
+import { keydetails } from '../Shared/keydetails';
 
 @Component({
   selector: 'app-generatenewapikey',
@@ -17,39 +19,59 @@ export class GeneratenewapikeyComponent implements OnInit {
   count: Number = 5;
   counterList = [5, 10, 15, 20];
   p: Number = 1;
-  terrentdetails: TerrentDetail[] = [];
+  terrentdetails: DhiApiKeyBasicDTO[] = [];
   ids = [1, 3, 2, 4];
   selectedvalues: string[] = ['Heraizen_1', 'Tenant_id_1', 'AITE_Eng']
   createapi: false;
-  displayedColumns: string[] = ['sl', 'tenantid', 'email', 'service', 'edit'];
+  displayedColumns: string[] = ['sl', 'tenantId', 'email', 'serviceId', 'edit'];
   selectterrent: string;
   selectedterrents: string;
+  apikey:string
   generateapikey: FormGroup;
-  dataSource = new MatTableDataSource<TerrentDetail>();
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  showApiKey:boolean=false
+  keyDetails:keydetails[]
+  tenantId:string[]=[]
+  serviceName:string[]=[]
+  search_value:string
 
-  constructor(private showterrentsservice: ShowterrentsService, private fb: FormBuilder) { }
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-  }
+  dataSource = new MatTableDataSource<DhiApiKeyBasicDTO>();
+  @ViewChild('scheduledOrdersPaginator') paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+  constructor(private showtenantdetails: ShowterrentsService, private fb: FormBuilder) { }
+  
+   
   ngOnInit(): void {
 
+    this.allservices()
+this.showtenantdetails.getServiceNames().subscribe(services=>
+     this.serviceName=services
+  )
     this.generateapikey = this.fb.group({
-      tenantid: ['', [Validators.required]],
+      tenantId: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      serviceid: ['', Validators.required]
+      serviceId: ['', Validators.required]
     })
 
-    this.showterrentsservice.apiServiceDetails().subscribe(data => {
+    this.showtenantdetails.getAllTenantIds().subscribe(tenantid=>{
+      this.tenantId=tenantid
+    }
+      )
+      
+  }
+
+ 
+    allservices(){
+    this.showtenantdetails.getTenantDetails().subscribe(data => {
       console.log("this is data",data)
-      // this.terrentdetails = data.api as TerrentDetail[];
-      // this.dataSource = new MatTableDataSource(this.terrentdetails);
+    
+      this.terrentdetails = data as DhiApiKeyBasicDTO[];
+      this.dataSource = new MatTableDataSource(this.terrentdetails);
+      this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    }
 
-
-
-    })
+)
   }
 
   createapikey() {
@@ -61,13 +83,13 @@ export class GeneratenewapikeyComponent implements OnInit {
     }
   }
   get tenantid() {
-    return this.generateapikey.get("tenantid")
+    return this.generateapikey.get("tenantId")
   }
   get email() {
     return this.generateapikey.get('email')
   }
   get serviceid() {
-    return this.generateapikey.get('serviceid')
+    return this.generateapikey.get('serviceId')
   }
 
 
@@ -79,18 +101,44 @@ export class GeneratenewapikeyComponent implements OnInit {
     }
   }
 
-  deactivate(index) {
-    console.log(this.terrentdetails[index]);
-    this.terrentdetails.splice(index, 1);
-    console.log(this.terrentdetails);
-    this.dataSource = new MatTableDataSource(this.terrentdetails);
+  
+    search() {
+      if (this.search_value.length > 0) {
+        this.keyDetails = [];
+        this.showtenantdetails.searchString(this.search_value).subscribe(res => {
+          this.dataSource = new MatTableDataSource(res);
+        });
+      } else {
+        this.allservices();
+      }
+    }
+  
+  
+  deactivate(index:string) {
+    status="INACTIVE"
+    this.showtenantdetails.updateStatus(index, status).subscribe(resp => {
+      if (resp) {
+        this.allservices()
+      }
+   
   }
+    )
+}
 
   submit() {
-    this.terrentdetails.push(this.generateapikey.value);
-    this.dataSource = new MatTableDataSource(this.terrentdetails);
-    this.generateapikey.reset();
+    // this.terrentdetails.push(this.generateapikey.value);
+    // this.dataSource = new MatTableDataSource(this.terrentdetails);
+    // this.generateapikey.reset();
+    this.showtenantdetails.createNewApiKey(this.generateapikey.value).subscribe(data=>{
+    if(data){
+      this.allservices();
+      this.apikey=data['apiKey']
+      console.log('token',this.apikey);
+      this.showApiKey=true
+    }
+      });
   }
+
   reset() {
     this.generateapikey.reset();
   }
@@ -108,16 +156,20 @@ export class GeneratenewapikeyComponent implements OnInit {
 
   }
 
-  givedata() {
-    this.selectedterrents = this.selectterrent
-    this.dataSource.data.filter(data => {
-
-      if (data.tenantId == this.selectedterrents) {
-        this.dataSource = new MatTableDataSource(this.terrentdetails)
-      }
-    })
+  onChangeTenantId(selectedvalue: string) {
+    console.log(selectedvalue)
+    if (selectedvalue) {
+      this.showtenantdetails.apiServiceByTenantId(selectedvalue).subscribe(res => {
+        if (res) {
+         this.dataSource = new MatTableDataSource(res);
+        }
+      });
+    } else {
+      this.allservices();
+    }
   }
 
+  
 }
 
 

@@ -1,34 +1,29 @@
-<div class="row">
-    <div class="col-md-12">
-        <nav class="navbar navbar-expand-sm">
-            <ul class="navbar-nav row col-md-12">
-                <div class="col-md-2">
-                    <li class="nav-item">
-                        <a class="navbar-brand">DHI API KEY GEN</a>
-                    </li>
-                </div>
-                <div class="col-md-1">
-                    <li class="nav-item text-center">
-                        <button class="btn nav-link" routerLink="/home">Home</button>
-                    </li>
-                </div>
-                <div class="col-md-1">
-                    <li class="nav-item text-center">
-                        <button class="btn nav-link" routerLink="/service">Service</button>
-                    </li>
-                </div>
-                <div class="offset-md-4 col-md-3">
-                    <li class="nav-item text-center">
-                        <a class="nav-link">Hi</a>
-                    </li>
-                </div>
-                <div class=" col-md-1">
-                    <li class="nav-item text-center">
-                        <a class="nav-link text-white" routerLink="">Logout</a>
-                    </li>
-                </div>
-            </ul>
-        </nav>
-
-    </div>
-</div>
+<nav class="navbar navbar-expand-sm">
+    <ul class="navbar-nav row col-md-12">
+        <div class="col-md-2">
+            <li class="nav-item">
+                <a class="navbar-brand">DHI API KEY GEN</a>
+            </li>
+        </div>
+        <div class="col-md-1">
+            <li class="nav-item text-center">
+                <button class="btn nav-link" routerLink="/home">Home</button>
+            </li>
+        </div>
+        <div class="col-md-1">
+            <li class="nav-item text-center">
+                <button class="btn nav-link" routerLink="/service">Service</button>
+            </li>
+        </div>
+        <div class="offset-md-4 col-md-3">
+            <li class="nav-item text-center">
+                <a class="nav-link">Hi {{username}}</a>
+            </li>
+        </div>
+        <div class=" col-md-1">
+            <li class="nav-item text-center">
+                <a class="nav-link text-white" (click)="logout()">Logout</a>
+            </li>
+        </div>
+    </ul>
+</nav>

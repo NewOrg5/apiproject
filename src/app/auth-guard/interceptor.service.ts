@@ -9,20 +9,18 @@ export class InterceptorService implements HttpInterceptor{
   constructor( private authService :AuthService) { }
 
   intercept(req, next) {
-  console.log("this is the token",req);
+  
 
     if (req.headers.get('skip')) {
       return next.handle(req);
+     
+      
     }
 
 
     const tokenizedReq = req.clone({
       setHeaders: {
-        'authorization': 'Bearer '+ this.authService.getJwtToken()
-
-        // Authorization: `Bearer ${this.authService.getJwtToken()}`
-      
-        
+        'authorization': 'Bearer '+ this.authService.getToken()
       }
     });
     return next.handle(tokenizedReq);

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LoginserviceService } from '../Services/loginservice.service';
+// import { LoginserviceService } from '../Services/loginservice.service';
 import { tokenName } from '@angular/compiler';
 import { TokenError } from '@angular/compiler/src/ml_parser/lexer';
+// import { Router } from '@angular/router';
+// import { AuthService } from '../auth-guard/auth.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth-guard/auth.service';
 
@@ -15,16 +17,17 @@ import { AuthService } from '../auth-guard/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  email: string = "admin@heraizen.com"
-  pass: string = "admin@123!"
+  // email: string = "admin@heraizen.com"
+  // pass: string = "admin@123!"
   login: boolean = false
   loginform: FormGroup;
   logindata: string
   token: string;
-userdata:string
-errormessage:string
-  constructor(private loginservice: LoginserviceService, private fb: FormBuilder, private router: Router,private authService:AuthService) { }
+  userdata: string
+  errormessage: string
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
 
+  }
 
 
   ngOnInit(): void {
@@ -44,29 +47,25 @@ errormessage:string
 
 
   confirmcredentials() {
-    const userdata=this.loginform.value
-    console.log('this.loginform.value',this.loginform.value)
+    const userdata = this.loginform.value
+    console.log('this.loginform.value', this.loginform.value)
 
-     this.loginservice.getloginfromapi(this.loginform.value.username,this.loginform.value.password).subscribe((data)=>
-     {
-       this.token=data["token"]
-        localStorage.setItem('token',this.token)
-        console.log(this.token)
-    //     if(data){
-
+    this.authService.getloginfromapi(this.loginform.value.username,this.loginform.value.password).subscribe(data =>
+      {
+        if(data)
+        {
+          this.router.navigate(['/login']); 
+        }
+        else{
+          this.router.navigate(['/'])
+        }
+      }
+    
       
-    //   this.router.navigate(['/login']); 
-    //  }
+    )
 
-     if (this.authService.isLoggedIn()) {
-       console.log('authon')
-      this.router.navigate(['/login']);
-   }
-     else
-     {
-      this.errormessage="Invalid credentails";
-    }
+   
+  }
+
 }
-     )
-}}
 

@@ -10,14 +10,15 @@ import { HeaderComponent } from './header/header.component';
 import { GeneratenewapikeyComponent } from './generatenewapikey/generatenewapikey.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddnewservicesComponent } from './addnewservices/addnewservices.component';
-import { AddservicepopupComponent } from './addservicepopup/addservicepopup.component';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { HttpClientModule,HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { InterceptorService } from './auth-guard/interceptor.service';
-// import { DataTableModule } from 'angular-6-datatable';
+import { AddservicepopupComponent } from './addnewservices/addservicepopup/addservicepopup.component';
+
 @NgModule({
   declarations: [
     AppComponent,

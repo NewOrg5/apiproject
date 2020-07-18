@@ -8,6 +8,10 @@
         color: white;
     }
     
+    .btn:active {
+        background-color: orange;
+    }
+    
     .btn {
         color: #d6d6d6;
     }
