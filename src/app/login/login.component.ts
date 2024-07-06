@@ -50,6 +50,7 @@ export class LoginComponent implements OnInit {
 
 
   confirmcredentials() {
+    console.log("Confirm credential")
     const userdata = this.loginform.value
     console.log('this.loginform.value', this.loginform.value)
 
