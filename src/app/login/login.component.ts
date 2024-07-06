@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit {
     console.log("Confirm credential")
     const userdata = this.loginform.value
     console.log('this.loginform.value', this.loginform.value)
+    console.log("Confirm credential1")
 
     this.authService.getloginfromapi(this.loginform.value.username,this.loginform.value.password).subscribe(data =>
       {
