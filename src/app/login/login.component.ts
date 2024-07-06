@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     return this.loginform.get('username');
   }
   get password() {
+    console.log("Password")
     return this.loginform.get('password');
   }
 
