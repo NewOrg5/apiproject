@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authservice:AuthService,private router:Router) { }
 
   ngOnInit(): void {
+    console.log("This is header")
   }
 username=localStorage.getItem("email")
 logout(){
