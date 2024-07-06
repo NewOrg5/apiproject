@@ -25,7 +25,7 @@ export class AddnewservicesComponent implements OnInit {
 
   constructor(public dialog: MatDialog, private showtenants: ShowterrentsService) { }
   addnewservice() {
-
+    console.log("Added new service")
     const dialogConfig = this.dialog.open(AddservicepopupComponent, {
       width: '500px',
       position: { top: '5%', left: '30%' },
